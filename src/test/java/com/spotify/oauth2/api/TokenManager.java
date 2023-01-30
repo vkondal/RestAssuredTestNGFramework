@@ -17,11 +17,11 @@ public class TokenManager {
             if (access_token == null || Instant.now().isAfter(Instant.parse(expiry_time))) {
                 System.out.println("Renewing token ... ");
                 Response response = renewToken();
-                //access_token= response.jsonPath().getJsonObject("access_token"); OR below same thing..
+                //access_token= response.jsonPath().getJsonObject("access_token"); OR below same thing.
                 access_token = response.path("access_token");
                 //Now get the expiry time of the token ....
                 int expiryDurationInSecs = response.path("expires_in"); //expiryDurationInSecs in seconds
-                //Not we need to get the current time in secs
+                //Now we need to get the current time in secs
                 expiry_time = String.valueOf(Instant.now().plusSeconds(expiryDurationInSecs - 200));
             } else {
                 System.out.println("token is good to use ... ");
